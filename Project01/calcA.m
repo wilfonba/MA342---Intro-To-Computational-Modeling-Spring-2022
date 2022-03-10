@@ -21,7 +21,7 @@ function A = calcA(Ls,ts,n,x,b)
 
     % Initialize empty arrays
     N = size(Ls,1);      % number of panels
-    A = zeros(N,N-1);    % coefficient matrix a
+    A = zeros(N-1,N);    % coefficient matrix a
     M = zeros(N,2);        % Nx2 midpoint matrix
     
     % Populate xz transform matrix
@@ -30,8 +30,8 @@ function A = calcA(Ls,ts,n,x,b)
            d = x(i,:) - x(i+1,:);
            M(i,:) = x(i+1,:) + b.*d;
        else
-           d = x(i) - x(i+1,:);
-           M(i,:) = x(i) + b.*d;
+           d = x(i+1,:) - x(i,:);
+           M(i,:) = x(i,:) + b.*d;
        end
     end
     
@@ -54,8 +54,10 @@ function A = calcA(Ls,ts,n,x,b)
                 d1 = z/(2*pi*(abs(z)^2 + (1 - b)^2*L^2 - 2*x*(1 - b)*L + x^2));
                 d2 = z/(2*pi*(abs(z)^2 + b^2*L^2 + 2*x*b*L + x^2));
                 D1 = -1*(d1-d2);
-                d1 = ((abs(z)^2 + (-x + 0.5*L)^2)*(z - abs(z))*(z + abs(z))*atan((-x + 0.5*L)/abs(z)) + abs(z)*(abs(z)^2 + z^2)*(-x + 0.5*L))/(4*(abs(z)^2 + (-x + 0.5*L)^2)*pi*abs(z)^3);
-                d2 = ((abs(z)^2 + (-x - 0.5*L)^2)*(z - abs(z))*(z + abs(z))*atan((-x - 0.5*L)/abs(z)) + abs(z)*(abs(z)^2 + z^2)*(-x - 0.5*L))/(4*(abs(z)^2 + (-x - 0.5*L)^2)*pi*abs(z)^3);
+                d1 = ((abs(z)^2 + (-x + 0.5*L)^2)*(z - abs(z))*(z + abs(z))*atan((-x + 0.5*L)/abs(z)) +...
+                    abs(z)*(abs(z)^2 + z^2)*(-x + 0.5*L))/(4*(abs(z)^2 + (-x + 0.5*L)^2)*pi*abs(z)^3);
+                d2 = ((abs(z)^2 + (-x - 0.5*L)^2)*(z - abs(z))*(z + abs(z))*atan((-x - 0.5*L)/abs(z)) +...
+                    abs(z)*(abs(z)^2 + z^2)*(-x - 0.5*L))/(4*(abs(z)^2 + (-x - 0.5*L)^2)*pi*abs(z)^3);
                 D2 = -1*(d1-d2);
                 D = [D1;D2];
                 int1 = R\D;
