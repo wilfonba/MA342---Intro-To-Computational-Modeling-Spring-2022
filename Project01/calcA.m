@@ -1,4 +1,4 @@
-function A = calcA(Ls,ts,n,x,b)
+function A = calcA(Ls,ts,n,x,b,b2)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % function A = calcA(ds,ts,n,x)
     %
@@ -25,7 +25,7 @@ function A = calcA(Ls,ts,n,x,b)
     M = zeros(N,2);        % Nx2 midpoint matrix
     
     % Populate xz transform matrix
-    for i = 1:N
+    for i = 1:N-1
        if x(i+1,1) < x(i,1)
            d = x(i,:) - x(i+1,:);
            M(i,:) = x(i+1,:) + b.*d;
@@ -34,6 +34,9 @@ function A = calcA(Ls,ts,n,x,b)
            M(i,:) = x(i,:) + b.*d;
        end
     end
+    
+    d = x(end,:) - x(end-1,:);
+    M(N,:) = x(N,:) + b2.*d;
     
     for i = 1:N
         theta = ts(i);
