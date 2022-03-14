@@ -1,4 +1,7 @@
-function [points] = nPoints(fileName,n,wake_angle,wake_len)
+function [points] = nPoints(fileName,n,wake_angle,wake_len,loud)
+if nargin<5
+    loud = 0;
+end
 maxItr = 100;
 img = rgb2gray(imread(fileName));
 edges = uint8(edge(img,"Sobel"))*255;
@@ -9,8 +12,8 @@ filled = imfill(dilated,'holes');
 perim = bwperim(filled);
 [row,col] = find(perim~=0);
 traced = bwtraceboundary(perim,[row(end) col(end)],'N');
-imshow(perim);
-pause
+% imshow(perim);
+% pause
 % placeholder point finder
 % points = traced(1:round(pixelCount/n):end,:);
 % points(end+1,:) = points(1,:);
@@ -47,7 +50,9 @@ while length(points)~= n
         end
     end
     [len,~] = size(points);
-      fprintf("it: %d points: %d angle_tol: %d angle_range: %d\n",itCount,len,angle_tol,angle_range);
+    if loud
+        fprintf("it: %d points: %d angle_tol: %d angle_range: %d\n",itCount,len,angle_tol,angle_range);
+    end
     if len>n
         angle_tol=angle_tol+angle_range/2;
     elseif len<n
@@ -67,10 +72,12 @@ points(end+1,:) = [ ...
         round(points(end,1)+sind(wake_angle)*wake_len) ...
         round(points(end,2)+cosd(wake_angle)*wake_len) ...
 ];
-blank = zeros(size(img)*2);
-for i=1:length(points)
-    blank(points(i,1),points(i,2)) = 1;
+if loud
+    blank = zeros(size(img)*2);
+    for i=1:length(points)
+        blank(points(i,1),points(i,2)) = 1;
+    end
+    imshow(imdilate(blank,se));
 end
-imshow(imdilate(blank,se));
 end
 
