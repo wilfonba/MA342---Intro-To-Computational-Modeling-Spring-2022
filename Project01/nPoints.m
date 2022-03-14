@@ -79,6 +79,9 @@ if loud
     end
     imshow(imdilate(blank,se));
 end
-points(1,:) = [];
+% points(1,:) = [];
+if points(1,:) == points(2,:)
+   points(1,:) = []; 
+end
 end
 
