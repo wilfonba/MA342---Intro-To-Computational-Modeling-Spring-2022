@@ -11,7 +11,8 @@ dilated = imclose(edges,se);
 filled = imfill(dilated,'holes');
 perim = bwperim(filled);
 [row,col] = find(perim~=0);
-traced = bwtraceboundary(perim,[row(end) col(end)],'N');
+traced = bwtraceboundary(perim,[row(end) col(end)],'S');
+traced = traced(end:-1:1,:);
 % imshow(perim);
 % pause
 % placeholder point finder
