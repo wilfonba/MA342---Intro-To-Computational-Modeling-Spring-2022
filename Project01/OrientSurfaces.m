@@ -28,10 +28,10 @@ panels = points(1:end - 1, :) - points(2:end, :);
 
 % Computes the inward-facing normal vectors for each panel.
 prenormals = [-panels(:, 2) , panels(:, 1)];
-normals = prenormals./vecnorm(prenormals, 2, 2);
+normals = -1.*prenormals./vecnorm(prenormals, 2, 2);
 
 % Computes angles to the z axis for each panel.
 thetas = -sign(normals(:, 1)).*acos(-normals(:, 2));
 
 % Computes d values for each panel.
-ds = vecnorm(panels, 2, 2) * theta;
+ds = sqrt((points(2:end,1) - points(1:end-1,1)).^2 + (points(2:end,2) - points(1:end-1,2)).^2)*0.5;
