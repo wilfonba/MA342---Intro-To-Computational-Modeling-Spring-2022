@@ -2,6 +2,9 @@ clc;clear;close all;
 
 V = 76;
 
+xs = 0.005:0.001:0.995;
+figure("position",[50 50 1050 600]);hold on;
+
 j = 1;
 for jj = 0.1:0.1:1
     k = 1;
@@ -28,13 +31,9 @@ for jj = 0.1:0.1:1
         L(j,k) = norm(V)*1.225*GAMMA(k);
         k = k + 1;
     end
-    j = j + 1;
+    plot(xs,L(1,:));hold on;
 end
 
-xs = 0.005:0.001:0.995;
-figure("position",[50 50 1050 600]);hold on;
-for i = 1:10
-    plot(xs,L(i,:))
-end
+
 ylim([0 2e4])
 legend(["0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9","1.0"],"location","southoutside","orientation","horizontal")

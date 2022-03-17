@@ -7,6 +7,9 @@ points = [3 -1;2 0;0 1;-3 0.4;-3.2 0;-3 -0.4;0 -0.5;3 -1;3.85 -1.44];
 b = -1.*V.*(normals(:,:)*[1;0]);
 b(end) = [];
 
+figure("position",[50 50 1050 600]);hold on;
+xs = 0.005:0.001:0.995;
+
 j = 1;
 for jj = 0.15:0.15:0.9
     k = 1;
@@ -22,13 +25,10 @@ for jj = 0.15:0.15:0.9
         L(j,k) = norm(V)*1.225*GAMMA(k);
         k = k + 1;
     end
-    j = j + 1;
+    %j = j + 1;
+    plot(xs,L(1,:),'linewidth',1);hold on;
 end
 
-xs = 0.005:0.001:0.995;
-figure("position",[50 50 1050 600]);hold on;
-for i = 1:6
-    plot(xs,L(i,:),'linewidth',1)
-end
+
 ylim([0 2e4])
 legend(["0.15","0.30","0.45","0.60","0.75","0.90"],"location","southoutside","orientation","horizontal")
