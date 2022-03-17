@@ -59,26 +59,7 @@ function A = calcA(Ls,ts,n,x,b,b2)
            x = Mt(1,j);
            z = Mt(2,j);
            L = Ls(i);
-           if i == N
-               if i == j
-                    D2 = -L/(2*L^2*pi*b2^2 - 2*L^2*pi*b2 + 4*L*pi*b2*x - 2*L*pi*x + 2*pi*x^2);
-                    D = [0;-D2];
-                    int1 = R\D;
-                    A(j,i) = n(j,:)*int1;
-               else
-                    d1 = z/(2*pi*(abs(z)^2 + (1 - b2)^2*L^2 - 2*x*(1 - b2)*L + x^2));
-                    d2 = z/(2*pi*(abs(z)^2 + b2^2*L^2 + 2*x*b2*L + x^2));
-                    D1 = (d1-d2);
-                    d1 = ((abs(z)^2 + (-x + 0.5*L)^2)*(z - abs(z))*(z + abs(z))*atan((-x + 0.5*L)/abs(z)) +...
-                        abs(z)*(abs(z)^2 + z^2)*(-x + 0.5*L))/(4*(abs(z)^2 + (-x + 0.5*L)^2)*pi*abs(z)^3);
-                    d2 = ((abs(z)^2 + (-x - 0.5*L)^2)*(z - abs(z))*(z + abs(z))*atan((-x - 0.5*L)/abs(z)) +...
-                        abs(z)*(abs(z)^2 + z^2)*(-x - 0.5*L))/(4*(abs(z)^2 + (-x - 0.5*L)^2)*pi*abs(z)^3);
-                    D2 = (d1-d2);
-                    D = [D1;D2];
-                    int1 = R\D;
-                    A(j,i) = n(j,:)*int1;
-               end
-           else
+           if i ~= N
               if i == j
                     D2 = -L/(2*L^2*pi*b^2 - 2*L^2*pi*b + 4*L*pi*b*x - 2*L*pi*x + 2*pi*x^2);
                     D = -1.*[0;D2];
@@ -94,6 +75,25 @@ function A = calcA(Ls,ts,n,x,b,b2)
                         abs(z)*(abs(z)^2 + z^2)*(-x - 0.5*L))/(4*(abs(z)^2 + (-x - 0.5*L)^2)*pi*abs(z)^3);
                     D2 = (d1-d2);
                     D = -1.*[D1;D2];
+                    int1 = R\D;
+                    A(j,i) = n(j,:)*int1;
+              end
+           else
+              if i == j
+                    D2 = -L/(2*L^2*pi*b2^2 - 2*L^2*pi*b2 + 4*L*pi*b2*x - 2*L*pi*x + 2*pi*x^2);
+                    D = [0;D2];
+                    int1 = R\D;
+                    A(j,i) = n(j,:)*int1;
+               else
+                    d1 = z/(2*pi*(abs(z)^2 + (1 - b2)^2*L^2 - 2*x*(1 - b2)*L + x^2));
+                    d2 = z/(2*pi*(abs(z)^2 + b2^2*L^2 + 2*x*b2*L + x^2));
+                    D1 = (d1-d2);
+                    d1 = ((abs(z)^2 + (-x + 0.5*L)^2)*(z - abs(z))*(z + abs(z))*atan((-x + 0.5*L)/abs(z)) +...
+                        abs(z)*(abs(z)^2 + z^2)*(-x + 0.5*L))/(4*(abs(z)^2 + (-x + 0.5*L)^2)*pi*abs(z)^3);
+                    d2 = ((abs(z)^2 + (-x - 0.5*L)^2)*(z - abs(z))*(z + abs(z))*atan((-x - 0.5*L)/abs(z)) +...
+                        abs(z)*(abs(z)^2 + z^2)*(-x - 0.5*L))/(4*(abs(z)^2 + (-x - 0.5*L)^2)*pi*abs(z)^3);
+                    D2 = (d1-d2);
+                    D = [D1;D2];
                     int1 = R\D;
                     A(j,i) = n(j,:)*int1;
               end

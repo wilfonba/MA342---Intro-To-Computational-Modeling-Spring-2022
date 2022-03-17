@@ -19,6 +19,10 @@ for jj = 10:10:50
     Length = sqrt(0.9161);
     T = jj*pi/180;
     points = [3 -1;2 0;0 1;-3 0.4;-3.2 0;-3 -0.4;0 -0.5;3 -1;(3 + Length*cos(T)) (-1-Length*sin(T))];
+    
+%     plot(points(:,1),points(:,2),'ko-');axis equal;
+%     pause;
+    
     [ds,thetas,normals] = OrientSurfaces(points);
     b = -1.*V.*(normals(:,:)*[1;0]);
     b(end) = [];
