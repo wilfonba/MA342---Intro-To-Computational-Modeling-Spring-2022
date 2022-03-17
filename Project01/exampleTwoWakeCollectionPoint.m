@@ -1,11 +1,9 @@
 clc;clear;close all;
 
 V = 76;
-%N = 20;
 
 points = [3 -1;2 0;0 1;-3 0.4;-3.2 0;-3 -0.4;0 -0.5;3 -1;3.85 -1.44];
 [ds,thetas,normals] = OrientSurfaces(points);
-%normals(end,:) = -1.*normals(end,:);
 b = -1.*V.*(normals(:,:)*[1;0]);
 b(end) = [];
 
@@ -33,4 +31,4 @@ for i = 1:6
     plot(xs,L(i,:),'linewidth',1)
 end
 ylim([0 2e4])
-legend(["0.1","0.2","0.3","0.4","0.5","0.6"],"location","southoutside","orientation","horizontal")
+legend(["0.15","0.30","0.45","0.60","0.75","0.90"],"location","southoutside","orientation","horizontal")
