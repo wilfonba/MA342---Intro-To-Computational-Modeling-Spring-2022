@@ -1,22 +1,25 @@
 clc;clear;close all;
 
-V = 76;
-N = 20;
+T = 5*pi/180;
+V = [6.7*cos(T);6.7*sin(T)];
+N = 10;
 
-%points = nPoints("ma342_dae11_c1m.PNG",N,11.25,250,1);
-%points = fliplr(points);
-%points(:,2) = -1.*points(:,2);
-%points = points./1000; 
-points = [3 -1;2 0;0 1;-3 0.4;-3.2 0;-3 -0.4;0 -0.5;3 -1;3.85 -1.44];
+points = nPoints("ma342_dae11_c1m.PNG",N,35.9,348,0);
+points = fliplr(points);
+points(:,2) = -1.*points(:,2);
+points = 2.5.*points./1045; 
+%L = 1.997;
+%Theta = 35.9*pi/180;
+%points = [3 -1;2 0;0 1;-3 0.4;-3.2 0;-3 -0.4;0 -0.5;3 -1;3 + L*cos(Theta),-1 - L*sin(Theta)];
 [ds,thetas,normals] = OrientSurfaces(points);
 %normals(end,:) = -1.*normals(end,:);
 
-b = -1.*V.*(normals(:,:)*[1;0]);
+b = -1.*(normals(:,:)*V);
 b(end) = [];
 
 k = 1;
-for i = 0.005:0.001:0.995
-    A = calcA(ds.*2,thetas,normals,points,i,0.9);
+for i = 0:0.001:1
+    A = calcA(ds.*2,thetas,normals,points,i,0.5313);
     A(:,1) = A(:,1) + A(:,end);
     A(:,end-1) = A(:,end-1) - A(:,end);
     A(:,end) = [];
@@ -28,6 +31,13 @@ for i = 0.005:0.001:0.995
     k = k + 1;
 end
 
-xs = 0.005:0.001:0.995;
-figure("position",[50 50 1050 600]);hold on;
+xs = 0:0.001:1;
+sXs = [2,10:10:350,450:10:490,510:10:750,1000];
+zSpline = CubicSpline_soln(xs(sXs),L(sXs),xs);
+plot(xs,zSpline,'linewidth',1);hold on;
+[~,idx] = max(zSpline);
+
+
+%figure("position",[50 50 1050 600]);hold on;
 plot(xs,L,'linewidth',1)
+ylim([0 350])

@@ -2,11 +2,11 @@ clc;clear;close all;
 
 V = 76;
 
-xs = 0.005:0.001:0.995;
+xs = 0:0.001:1;
 figure("position",[50 50 1050 600]);hold on;
 
 j = 1;
-for jj = 0.1:0.1:1
+for jj = 0.2:0.1:2
     k = 1;
     Length = jj;
     T = 30*pi/180;
@@ -19,7 +19,7 @@ for jj = 0.1:0.1:1
     b = -1.*V.*(normals(:,:)*[1;0]);
     b(end) = [];
 
-    for i = 0.005:0.001:0.995
+    for i = 0:0.001:1
         A = calcA(ds.*2,thetas,normals,points,i,0.5);
         A(:,1) = A(:,1) + A(:,end);
         A(:,end-1) = A(:,end-1) - A(:,end);
@@ -28,12 +28,21 @@ for jj = 0.1:0.1:1
         mu = A\b;
 
         GAMMA(j,k) = -(mu(end) - mu(1));
-        L(j,k) = norm(V)*1.225*GAMMA(k);
+        L(j,k) = norm(V)*1.225*GAMMA(j,k);
         k = k + 1;
     end
-    plot(xs,L(1,:));hold on;
+    sXs = [2:10:450,580:10:830,1000];
+    zSpline = CubicSpline_soln(xs(sXs),L(j,sXs),xs);
+    plot(xs,zSpline,'linewidth',1);
+    [~,idx] = max(zSpline);
+    fprintf("%1.2f | %2.2f | %1.3f\n",jj,L(j,idx)/1000,xs(idx));
+    F(j) = L(j,idx);
+    %xline(xs(idx),'k--')
+    %plot(xs,L(j,:),'linewidth',1);
+    ylim([-1e4 2e4]);
+    j = j + 1;
 end
 
 
-ylim([0 2e4])
-legend(["0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9","1.0"],"location","southoutside","orientation","horizontal")
+grid;
+legend(["0.2","0.35","0.5","0.65","0.8","0.95","1.10"],"location","southoutside","orientation","horizontal")
