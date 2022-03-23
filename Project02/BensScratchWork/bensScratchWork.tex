@@ -95,7 +95,22 @@
 		CM \CM
 	\end{tabular}
 	\noindent\makebox[\linewidth]{\rule{\textwidth}{1pt}} \\~\\
-	
-	
-	
+	The point types are:
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=\textwidth]{pointTypes.png}
+	\end{figure} \\
+	The boundary condition on the curved edge is
+	\[\nabla T(x,y,t)\cdot n = -1 \quad \rightarrow \quad \pdiff[T(x,y,t)]{x}n_x + \pdiff[T(x,y,t)]{y}n_y = -1 \quad \rightarrow \quad \pdiff[T_{j,k,i}]{x}n_x + \pdiff[T_{j,k,i}]{y}n_y = -1\]
+	At points of type 1 using one sided differences this is:
+	\[\frac{n_x}{2h}\left(T_{j,k-2,i} - 4T_{j,k-1,i} + 3T_{j,k,i}\right) + \frac{n_y}{2h}\left(-3T_{j,k,i} + 4T_{j+1,k,i} - T_{j+2,k,i}\right) = -1\]
+	\[\frac{3n_x}{2h}T_{j,k,i} - \frac{3n_y}{2h}T_{j,k,i} = -1 + \frac{n_x}{2h}(4T_{j,k-1,i} - T_{j,k-2,i}) + \frac{n_y}{2h}(T_{j+2,k,i} - 4_{j+1,k,i})\]
+	\[T_{j,k,i} = \left(\frac{3n_x-3n_y}{2h}\right)^{-1}\left(-1 + \frac{n_x}{2h}(4T_{j,k-1,i} - T_{j,k-2,i}) + \frac{n_y}{2h}(T_{j+2,k,i} - 4_{j+1,k,i})\right)\]
+	\noindent At points of type 7 using one sided differences this is:
+	\[\frac{n_x}{2h}\left(T_{j,k-2,i} - 4T_{j,k-1,i} + 3T_{j,k,i}\right) + \frac{n_y}{2h}\left(-4T_{j,k,i} + 4T_{j+1,k,i}\right) = -1\]
+	\[\frac{3n_x}{2h}T_{j,k,i} - \frac{4n_y}{2h}T_{j,k,i} = -1 + \frac{n_x}{2h}(4T_{j,k-1,i} - T_{j,k-2,i}) - \frac{n_y}{2h}T_{j+1,k,i}\]
+	\[T_{j,k,i} = \left(\frac{3n_x-4n_y}{2h}\right)^{-1}\left(-1 + \frac{n_x}{2h}(4T_{j,k-1,i} - T_{j,k-2,i}) - \frac{n_y}{2h}T_{j+1,k,i}\right)\]
+	\noindent At points of type 8 using one sided differences this is:
+	\[\frac{n_x}{2h}\left(T_{j,k-2,i} - 4T_{j,k-1,i} + 3T_{j,k,i}\right) = -1\]
+	\[T_{j,k,i} = -\frac{2h}{n_x} + 4T_{j,k-1,i} - T_{j,k-2,i} \]
 \end{document}
