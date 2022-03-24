@@ -1,14 +1,16 @@
 %% Initializing
 clc;clear;close all;
 
-rho = 7.8;
-c   = 0.11;
-k   = 0.013;
+rho = 1000;
+c   = 1;
+k   = 0.01;
+
+frameDt = 0.01;
 
 makeMovie = 1;
 makeMP4 = 0;
 
-[xs,ys,NTA] = heatEquationMesh(10,0);
+[xs,ys,NTA] = heatEquationMesh(16,0);
 
 Nx = length(xs);
 Ny = length(ys);
@@ -19,8 +21,11 @@ T(:,:,2) = zeros(Ny,Nx);
 
 h = xs(2)-xs(1);
 dt = 0.45*(c*rho*h^4)/(k*2*h^2);
+if dt > 0.001
+    dt = 0.001;
+end
 
-writerObj = VideoWriter('HetaEquationVideo','MPEG-4');
+writerObj = VideoWriter('HetaEquationVideo1','MPEG-4');
 open(writerObj);
 
 %% Timesteping
@@ -33,10 +38,10 @@ Y = flipud(Y);
 
 % prevents surface plots from plotting in loop
 fig = figure("position",[50 50 1000 800]);
-%fig.Visible = 'off';
+fig.Visible = 'off';
 
 N = ceil(2/dt);
-stepsPerFrame = 0.01/dt;
+stepsPerFrame = floor(frameDt/dt);
 %N = 10;
 
 % set up progress bar
@@ -78,7 +83,7 @@ for i = 1:N
         end
     end
     [m,n] = deal(n,m);
-    if (mod(i,floor(stepsPerFrame)) == 0) || i == N
+    if (mod(i,stepsPerFrame) == 0) || i == N
         cla;
         surf(X,Y,T(:,:,m),'edgecolor','none');hold on;
         surf(-X,Y,T(:,:,m),'edgecolor','none');
