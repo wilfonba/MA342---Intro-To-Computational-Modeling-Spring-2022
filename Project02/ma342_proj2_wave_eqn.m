@@ -5,6 +5,10 @@ clc; close all; clear variables;
 
 %% Problem 2 (Adding a damping term to the example)
 
+movietime = 1;
+writerObj = VideoWriter('WaveEquation_1D_video','MPEG-4');
+open(writerObj);
+
 %Problem setup
 kappa = 0.9758;                                %Selected values of kappa to sees the effects of a damper
 
@@ -58,7 +62,7 @@ for j = 3:length(Time)                      %Covers all the rows (time component
 
 
     
-    if image_count >= 10                     %Once counter reaches limit, update animation
+    if image_count >= 4                     %Once counter reaches limit, update animation
         figure(1)
         subplot(2,1,2)
         plot(Sol_damped(indx,j),'r-')
@@ -74,8 +78,11 @@ for j = 3:length(Time)                      %Covers all the rows (time component
 
         pause(0.1)
 
+        if movietime
+            writeVideo(writerObj,getframe(gcf)); 
+        end
         image_count = 0;
     end
-
     image_count = image_count + 1;          %Increment the counter variable
 end
+close(writerObj);
