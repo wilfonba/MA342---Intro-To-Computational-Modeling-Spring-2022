@@ -25,7 +25,7 @@ function [xs,ys,NTA] = heatEquationMesh(Ny,doPlot)
         plot([0 0],[0 d/2],'k--','linewidth',1);
         plot([0 d],[0 0],'k--','linewidth',1);
         plot([d/2 + d/2.*cos(theta)],[d/2.*sin(theta)],'k-','linewidth',2)
-        plot([d/2 d],[d/2 d/2],'k--','linewidth',1)
+        plot([d/2 d/2],[d/2 d/2],'k--','linewidth',1)
         plot([d d],[0 d/2],'k--','linewidth',1);
     end
 
@@ -66,7 +66,7 @@ function [xs,ys,NTA] = heatEquationMesh(Ny,doPlot)
     xpts = [xpts (xpts(end)-1:-1:1)];
 
     if doPlot
-        plot(xs(floor(Nx/2)+fliplr(xpts)),ys(xpts),'k.','markersize',20);
+        plot(xs(floor(Nx/2)+fliplr(xpts)),ys(xpts),'r.','markersize',25);
     end
 
     %% Generate Node Type Array

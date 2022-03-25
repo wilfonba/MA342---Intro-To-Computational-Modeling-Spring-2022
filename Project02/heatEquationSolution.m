@@ -1,11 +1,11 @@
 %% Initializing
 clc;clear;close all;
 
-rho = 1000;
-c   = 1;
-k   = 0.01;
+rho = 10;
+c   = 0.001;
+k   = 0.001;
 
-frameDt = 0.01;
+frameDt = 0.005;
 
 makeMovie = 1;
 makeMP4 = 0;
@@ -20,7 +20,7 @@ T = 60.*ones(Ny,Nx);
 T(:,:,2) = zeros(Ny,Nx);
 
 h = xs(2)-xs(1);
-dt = 0.45*(c*rho*h^4)/(k*2*h^2);
+dt = 0.5*(c*rho*h^4)/(k*2*h^2) - eps;
 if dt > 0.001
     dt = 0.001;
 end
@@ -83,7 +83,7 @@ for i = 1:N
         end
     end
     [m,n] = deal(n,m);
-    if (mod(i,stepsPerFrame) == 0) || i == N
+    if (mod(i,stepsPerFrame) == 0) || i == N || i == 1
         cla;
         surf(X,Y,T(:,:,m),'edgecolor','none');hold on;
         surf(-X,Y,T(:,:,m),'edgecolor','none');
