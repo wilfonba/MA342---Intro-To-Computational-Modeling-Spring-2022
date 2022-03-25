@@ -2,33 +2,88 @@
 
 clc; close all; clear variables;
 
-r = 1;                        %x^2 + y^2 result or r^2
-Tmax = 20;                              %Maximum time
-dt = 0.2;
-dx = 0.05;
-dy = 0.05;
-PosX = unique([-sqrt(r):dx:sqrt(r),sqrt(r)]);
-PosY = unique([-sqrt(r):dy:sqrt(r),sqrt(r)]);
+Nxy = 11;
+Tmax = 10;                              %Maximum time
+dt = 0.025;
 Time = unique([0:dt:Tmax,Tmax]);
+[PosX, PosY, NTA] = waveEquationMesh(Nxy, pi/2, 1);
+dx = max(PosX(2:end) - PosX(1:end-1));
+dy = max(PosY(2:end) - PosY(1:end-1));
 Sol_disk = zeros(length(PosX), length(PosY), length(Time));
+[X,Y] = meshgrid(PosX,PosY);
+Y = flipud(Y);
 
 %Apply BC
-Sol_disk(:,:,1) = sqrt(r)/10;
+Sol_disk(:,:,1) = (PosX.^2 + flip(PosY).^2)/10 .* ones(Nxy);
+Sol_disk(:,:,2) = zeros(Nxy);
 
-%For Loop values
-indxX = 2:length(PosX)-1;
-indxY = 2:length(PosY)-1;
 image_count = 0;
-
-%Solve the problem
 for j = 3:length(Time)
+    for indxX = 1:Nxy
+        for indxY = 1:Nxy
+            if NTA(indxX,indxY) == 3
+                Sol_disk(indxX,indxY,j) = 2*dt^2/dx^2 * (Sol_disk(indxX+1,indxY,j-1) - ...
+                    2*Sol_disk(indxX,indxY,j-1) + Sol_disk(indxX-1,indxY,j-1)) + ...
+                    2*dt^2/dy^2 * (2*Sol_disk(indxX,indxY+1,j-1) - 2*Sol_disk(indxX,indxY,j-1)) + ...
+                    2*Sol_disk(indxX,indxY,j-1) - Sol_disk(indxX,indxY,j-2);                              %Corrected for symmetry only in x dir
+            elseif NTA(indxX,indxY) == 4
+                Sol_disk(indxX,indxY,j) = 2*dt^2/dx^2 * (Sol_disk(indxX-1,indxY,j-1) - ...
+                    2*Sol_disk(indxX,indxY,j-1) + Sol_disk(indxX-1,indxY,j-1)) + ...
+                    2*dt^2/dy^2 * (Sol_disk(indxX,indxY+1,j-1) - 2*Sol_disk(indxX,indxY,j-1) + ...
+                    Sol_disk(indxX,indxY-1,j-1)) + 2*Sol_disk(indxX,indxY,j-1) - ...
+                    Sol_disk(indxX,indxY,j-2);                              %Corrected for symmetry only in y dir
+            elseif NTA(indxX,indxY) == 5
+                Sol_disk(indxX,indxY,j) = 2*dt^2/dx^2 * (Sol_disk(indxX-1,indxY,j-1) - ...
+                    2*Sol_disk(indxX,indxY,j-1) + Sol_disk(indxX-1,indxY,j-1)) + ...
+                    2*dt^2/dy^2 * (Sol_disk(indxX,indxY+1,j-1) - 2*Sol_disk(indxX,indxY,j-1) + ...
+                    Sol_disk(indxX,indxY+1,j-1)) + 2*Sol_disk(indxX,indxY,j-1) - ...
+                    Sol_disk(indxX,indxY,j-2);                              %Corrected for symmetry in x and y dir
+            elseif NTA(indxX,indxY) == 1
+                Sol_disk(indxX,indxY,j) = 2*dt^2/dx^2 * (Sol_disk(indxX+1,indxY,j-1) - ...
+                    2*Sol_disk(indxX,indxY,j-1) + Sol_disk(indxX-1,indxY,j-1)) + ...
+                    2*dt^2/dy^2 * (Sol_disk(indxX,indxY+1,j-1) - 2*Sol_disk(indxX,indxY,j-1) + ...
+                    Sol_disk(indxX,indxY-1,j-1)) + 2*Sol_disk(indxX,indxY,j-1) - ...
+                    Sol_disk(indxX,indxY,j-2);
+            elseif NTA(indxX,indxY) == 0
+                Sol_disk(indxX,indxY,j) = NaN;
+            else
+                Sol_disk(indxX,indxY,j) = max((PosX.^2 + flip(PosY).^2)/10);
+            end
+        end
+    end
+    if image_count > 2
+        figure(2)
+        cla;
+        hold on;
+        surf(X,Y,Sol_disk(:,:,j),'EdgeColor','none')
+        surf(-X,Y,Sol_disk(:,:,j),'EdgeColor','none')
+        surf(-X,-Y,Sol_disk(:,:,j),'EdgeColor','none')
+        surf(X,-Y,Sol_disk(:,:,j),'EdgeColor','none')
+        colormap("default")
+        axis([-1, 1, -1, 1, -2, 2])
+        hold off;
 
-    Sol_disk(indxX,indxY,j) = 2*dt^2/dx^2 * (Sol_disk(indxX+1,indxY,j-1) - ...
-        2*Sol_disk(indxX,indxY,j-1) + Sol_disk(indxX-1,indxY,j-1)) + ...
-        2*dt^2/dy^2 * (Sol_disk(indxX,indxY+1,j-1) - 2*Sol_disk(indxX,indxY,j-1) + ...
-        Sol_disk(indxX,indxY-1,j-1)) + 2*Sol_disk(indxX,indxY,j-1) - ...
-        Sol_disk(indxX,indxY,j-2);
-
-
-    image_count = image_count + 1;
+        
+        pause(0.2);
+        image_count = 0;
+    end
+image_count = image_count + 1;
 end
+
+% %For Loop values
+% indxX = 2:length(PosX)-1;
+% indxY = 2:length(PosY)-1;
+% image_count = 0;
+% 
+% %Solve the problem
+% for j = 3:length(Time)
+% 
+%     Sol_disk(indxX,indxY,j) = 2*dt^2/dx^2 * (Sol_disk(indxX+1,indxY,j-1) - ...
+%         2*Sol_disk(indxX,indxY,j-1) + Sol_disk(indxX-1,indxY,j-1)) + ...
+%         2*dt^2/dy^2 * (Sol_disk(indxX,indxY+1,j-1) - 2*Sol_disk(indxX,indxY,j-1) + ...
+%         Sol_disk(indxX,indxY-1,j-1)) + 2*Sol_disk(indxX,indxY,j-1) - ...
+%         Sol_disk(indxX,indxY,j-2);
+% 
+% 
+%     image_count = image_count + 1;
+% end
