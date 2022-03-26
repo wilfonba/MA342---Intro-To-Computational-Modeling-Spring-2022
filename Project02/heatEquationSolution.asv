@@ -1,9 +1,9 @@
 %% Initializing
 clc;clear;close all;
 
-rho = 8.906e3;
-c   = 445.9;
-k   = 99.0;
+rho = 7.304e3;
+c   = 226.5;
+k   = 64.0;
 
 frameDt = 0.005;
 
@@ -25,7 +25,7 @@ if dt > 0.001
     dt = 0.001;
 end
 
-writerObj = VideoWriter('HeatEquationVideosAndData/HetaEquationNickel','MPEG-4');
+writerObj = VideoWriter('HeatEquationVideosAndData/HetaEquationTin','MPEG-4');
 open(writerObj);
 
 %% Timesteping
@@ -83,7 +83,7 @@ for i = 1:N
             end
         end
     end
-
+    [m,n] = deal(n,m);
     if (mod(i,stepsPerFrame) == 0) || i == N || i == 1
         cla;
         surf(X,Y,T(:,:,m),'edgecolor','none');hold on;
@@ -100,7 +100,6 @@ for i = 1:N
             writeVideo(writerObj,getframe(gcf)); 
         end
     end
-    [m,n] = deal(n,m);
     waitbar(i/N,wBar,"Solution Progress");
 end
 

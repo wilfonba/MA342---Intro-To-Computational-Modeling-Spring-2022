@@ -17,6 +17,8 @@ T = 30;                                     %Maximum time
 alpha = 0.1;                                %H/rho 
 dt = 0.028;                                 %delta t
 dx = 0.01;                                  %delta x
+frameDt = 0.001;
+frameSteps = floor(frameDt/dt);
 PosX = unique([0:dx:L,L]);                  %Creates vector for position and removes repeated values
 Time = unique([0:dt:T,T]);                  %Creates vector for time and removes repeated values
 Sol = zeros(length(PosX), length(Time));    %Creates empty matrix to fill with for loop and applies IC for u(x,t=0)
@@ -62,7 +64,7 @@ for j = 3:length(Time)                      %Covers all the rows (time component
 
 
     
-    if image_count >= 4                     %Once counter reaches limit, update animation
+    if image_count >= frameSteps                     %Once counter reaches limit, update animation
         figure(1)
         subplot(2,1,2)
         plot(Sol_damped(indx,j),'r-')

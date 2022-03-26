@@ -2,11 +2,15 @@
 
 clc; close all; clear variables;
 
-Nxy = 11;
-Tmax = 10;                              %Maximum time
-dt = 0.025;
+Nxy = 12;
+Tmax = 1; %Maximum time
+dx = 1/(Nxy-1);
+dt = 0.45*dx^2*sqrt(2);
 Time = unique([0:dt:Tmax,Tmax]);
-[PosX, PosY, NTA] = waveEquationMesh(Nxy, pi/2, 1);
+frameSteps = floor(0.005/dt);
+
+
+[PosX, PosY, NTA] = waveEquationMesh(Nxy, 3, 0);
 dx = max(PosX(2:end) - PosX(1:end-1));
 dy = max(PosY(2:end) - PosY(1:end-1));
 Sol_disk = zeros(length(PosX), length(PosY), length(Time));
@@ -16,6 +20,14 @@ Y = flipud(Y);
 %Apply BC
 Sol_disk(:,:,1) = (PosX.^2 + flip(PosY).^2)/10 .* ones(Nxy);
 Sol_disk(:,:,2) = zeros(Nxy);
+
+f = waitbar(0,'solution progress');
+fig = figure();
+fig.Visible = "off";
+
+writerObj = VideoWriter('WaveEquationVideosAndData/WaveEquation','MPEG-4');
+open(writerObj);
+
 
 image_count = 0;
 for j = 3:length(Time)
@@ -51,24 +63,25 @@ for j = 3:length(Time)
             end
         end
     end
+    
     if image_count > 2
-        figure(2)
         cla;
-        hold on;
-        surf(X,Y,Sol_disk(:,:,j),'EdgeColor','none')
+        surf(X,Y,Sol_disk(:,:,j),'EdgeColor','none');hold on;
         surf(-X,Y,Sol_disk(:,:,j),'EdgeColor','none')
         surf(-X,-Y,Sol_disk(:,:,j),'EdgeColor','none')
         surf(X,-Y,Sol_disk(:,:,j),'EdgeColor','none')
         colormap("default")
         axis([-1, 1, -1, 1, -2, 2])
         hold off;
-
-        
-        pause(0.2);
         image_count = 0;
+        writeVideo(writerObj,getframe(gcf)); 
     end
-image_count = image_count + 1;
+    waitbar(j/length(Time),f,"solution progress");
+    image_count = image_count + 1;
 end
+
+close(f);
+close(writerObj);
 
 % %For Loop values
 % indxX = 2:length(PosX)-1;
