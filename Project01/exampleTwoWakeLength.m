@@ -6,7 +6,7 @@ xs = 0:0.001:1;
 figure("position",[50 50 1050 600]);hold on;
 
 j = 1;
-for jj = 0.2:0.1:2
+for jj = 0.2:0.2:2
     k = 1;
     Length = jj;
     T = 30*pi/180;
@@ -33,7 +33,7 @@ for jj = 0.2:0.1:2
     end
     sXs = [2:10:450,580:10:830,1000];
     zSpline = CubicSpline_soln(xs(sXs),L(j,sXs),xs);
-    plot(xs,zSpline,'linewidth',1);
+    plot(xs,zSpline,'linewidth',1, 'color', [rand(1), rand(1), rand(1)]);
     [~,idx] = max(zSpline);
     fprintf("%1.2f | %2.2f | %1.3f\n",jj,L(j,idx)/1000,xs(idx));
     F(j) = L(j,idx);
@@ -45,4 +45,6 @@ end
 
 
 grid;
-legend(["0.2","0.35","0.5","0.65","0.8","0.95","1.10"],"location","southoutside","orientation","horizontal")
+legend(["0.2","0.4","0.6","0.8","1.0","1.2","1.4","1.6","1.8","2.0"],"location","southoutside","orientation","horizontal")
+xlabel("\theta")
+ylabel("Lift (N/m)")

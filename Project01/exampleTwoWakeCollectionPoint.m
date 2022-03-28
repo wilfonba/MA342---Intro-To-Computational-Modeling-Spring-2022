@@ -44,3 +44,5 @@ end
 
 grid;
 legend(["0.5","0.6","0.7","0.8","0.9"],"location","southoutside","orientation","horizontal")
+xlabel("\theta")
+ylabel("Lift (N/m)")
