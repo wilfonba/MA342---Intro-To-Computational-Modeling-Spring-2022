@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.10) (preloaded format=pdflatex 2021.11.30)  22 MAR 2022 21:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.10) (preloaded format=pdflatex 2021.11.30)  28 MAR 2022 12:42
 entering extended mode
 **./bensScratchWork.tex
 (bensScratchWork.tex
@@ -749,33 +749,44 @@ Underfull \hbox (badness 10000) in paragraph at lines 86--104
 
  []
 
+[1{C:/Users/wilfonba/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <./pointTyp
+es.png>]
+Overfull \hbox (7.45811pt too wide) detected at line 122
+\OML/cmm/m/it/10 g\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 \OT1/cmr/m/n/10 )[]\OML/cm
+m/m/it/10 e[] \OT1/cmr/m/n/10 = 2\OML/cmm/m/it/10 g\OT1/cmr/m/n/10 (\OML/cmm/m/
+it/10 \OT1/cmr/m/n/10 )[]\OML/cmm/m/it/10 e[] \OMS/cmsy/m/n/10   \OML/cmm/m/it
+/10 g\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 \OT1/cmr/m/n/10 )[]\OML/cmm/m/it/10 e[]
+ \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 rg\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 \OT1/c
+mr/m/n/10 )[] [] \OML/cmm/m/it/10 :
+ []
+
 
 AED: lastpage setting LastPage
-[1{C:/Users/wilfonba/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <./pointTyp
-es.png>] (bensScratchWork.aux) ) 
+[2] (bensScratchWork.aux) ) 
 Here is how much of TeX's memory you used:
  15561 strings out of 479610
- 298213 string characters out of 2863444
+ 298195 string characters out of 2863444
  789161 words of memory out of 3000000
  32317 multiletter control sequences out of 15000+600000
  409132 words of font info for 50 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  111i,11n,116p,503b,344s stack positions out of 5000i,500n,10000p,200000b,80000s
-<C:/Users/wilfonba/AppData/Local/Programs/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/wilfonba/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/wilfonba/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/w
-ilfonba/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb>
-<C:/Users/wilfonba/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
-/cmr10.pfb><C:/Users/wilfonba/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmr12.pfb><C:/Users/wilfonba/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/public/amsfonts/cm/cmr7.pfb><C:/Users/wilfonba/AppData/Local/Programs/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/wilfonba/AppData/Local/Prog
-rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/wilfonba/AppDat
-a/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on bensScratchWork.pdf (1 page, 123146 bytes).
+<C:/Users/wilfonba/AppData/Local/Programs/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/wilfonba/AppData/Local/Program
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/wilfonba/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/wilfon
+ba/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/U
+sers/wilfonba/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
+0.pfb><C:/Users/wilfonba/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
+nts/cm/cmr12.pfb><C:/Users/wilfonba/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmr5.pfb><C:/Users/wilfonba/AppData/Local/Programs/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/wilfonba/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/wilfonba/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/wilfonba/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on bensScratchWork.pdf (2 pages, 140183 bytes).
 PDF statistics:
- 52 PDF objects out of 1000 (max. 8388607)
+ 59 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  18 words of extra memory for PDF output out of 10000 (max. 10000000)
 

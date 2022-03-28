@@ -2,10 +2,10 @@
 
 clc; close all; clear variables;
 
-Nxy = 12;
+Nxy = 24;
 Tmax = 1; %Maximum time
 dx = 1/(Nxy-1);
-dt = 0.45*dx^2*sqrt(2);
+dt = 1/12*dx^2;
 Time = unique([0:dt:Tmax,Tmax]);
 frameSteps = floor(0.005/dt);
 
@@ -18,7 +18,7 @@ Sol_disk = zeros(length(PosX), length(PosY), length(Time));
 Y = flipud(Y);
 
 %Apply BC
-Sol_disk(:,:,1) = (PosX.^2 + flip(PosY).^2)/10 .* ones(Nxy);
+Sol_disk(:,:,1) = (PosX.^0 + flip(PosY).^2)/10 .* ones(Nxy);
 Sol_disk(:,:,2) = zeros(Nxy);
 
 f = waitbar(0,'solution progress');

@@ -112,5 +112,18 @@
 	\[T_{j,k,i} = \left(\frac{3n_x-4n_y}{2h}\right)^{-1}\left(-1 + \frac{n_x}{2h}(4T_{j,k-1,i} - T_{j,k-2,i}) - \frac{n_y}{2h}T_{j+1,k,i}\right)\]
 	\noindent At points of type 8 using one sided differences this is:
 	\[\frac{n_x}{2h}\left(T_{j,k-2,i} - 4T_{j,k-1,i} + 3T_{j,k,i}\right) = -1\]
-	\[T_{j,k,i} = -\frac{2h}{n_x} + 4T_{j,k-1,i} - T_{j,k-2,i} \]
+	\[T_{j,k,i} = -\frac{2h}{n_x} + 4T_{j,k-1,i} - T_{j,k-2,i} \] \newpage
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent The 2 dimensional discretization of the wave equation on an equally spaced grid is:
+	\[u_{i,j}^{k+1} = 2u_{i,j}^k - u_{i,j}^{k-1} + r\left(u_{i+1,j}^k + u_{i-1,j}^k + u_{i,j+1}^k + u_{i,j-1}^k - 4u_{i,j}^k\right)\]
+	where $h = \Delta x = \Delta y$ and
+	\[r = \left(\frac{H\Delta t^2}{\rho h^2}\right).\]
+	Substituting $u(x,y,t_n) = g(\xi)^ne^{I\xi xy}$ where $I = \sqrt{-1}$ yields:
+	\[g(\xi)^{k+1}e^{I\xi h^2ij} = 2g(\xi)^ke^{I\xi h^2ij} - g(\xi)^{k-1}e^{I\xi h^2ij} + rg(\xi)^k\left(e^{I\xi h^2(i+1)j} + e^{I\xi h^2(i-1)j} + e^{I\xi h^2i(j+1)} + e^{I\xi h^2i(j-1)} - 4e^{I\xi h^2ij}\right). \]
+	Dividing by $g(\xi)^{k-1}$ on both sides yields:
+	\[g(\xi)^2e^{I\xi h^2ij} = 2g(\xi)e^{I\xi h^2ij} - e^{I\xi h^2ij} + rg(\xi)\left(e^{I\xi h^2(i+1)j} + e^{I\xi h^2(i-1)j} + e^{I\xi h^2i(j+1)} + e^{I\xi h^2i(j-1)} - 4e^{I\xi h^2ij}\right). \]
+	Dividing by $e^{I\xi h^2ij}$ on both sides yields:
+	\[g(\xi)^2 = 2g(\xi) - 1 + rg(\xi)\left(e^{I\xi h^2} + e^{-I\xi h^2} + e^{I\xi h^2} + e^{-I\xi h^2} - 4\right), \]
+	\[g(\xi)^2 = 2g(\xi) - 1 + rg(\xi)\left(2e^{I\xi h^2} + 2e^{-I\xi h^2} - 4\right),\]
+	\[g(\xi)^2 = - 1 + rg(\xi)\left(4\cos(\xi h^2) - 2\right)\]
 \end{document}
