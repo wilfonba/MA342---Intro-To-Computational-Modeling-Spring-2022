@@ -6,7 +6,7 @@ xs = 0:0.001:1;
 figure("position",[50 50 1050 600]);hold on;
 
 j = 1;
-for jj = 10:1:90
+for jj = 10:10:70
     k = 1;
     Length = sqrt(0.9161);
     T = jj*pi/180;
@@ -44,3 +44,5 @@ end
 
 grid;
 legend(["10","20","30","40","50","60","70"],"location","southoutside","orientation","horizontal")
+xlabel("\theta")
+ylabel("Lift (N/m)")
