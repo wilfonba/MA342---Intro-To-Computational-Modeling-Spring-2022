@@ -5,11 +5,11 @@ clc; close all; clear variables;
 
 norm = 2;
 Nxy = 128;
-Tmax = 5; %Maximum time
+Tmax = 10; %Maximum time
 dx = 1/(Nxy-1);
 dt = 0.95*1/4*dx^2;
 Time = unique([0:dt:Tmax,Tmax]);
-frameSteps = floor(0.005/dt);
+frameSteps = ceil(0.005/dt);
 
 
 [PosX, PosY, NTA] = waveEquationMesh(Nxy, norm, 0);
@@ -37,11 +37,39 @@ f = waitbar(0,'solution progress');
 fig = figure();
 fig.Visible = "off";
 
-writerObj = VideoWriter('WaveEquationVideosAndData/WaveEquation','MPEG-4');
+filename = strcat('WaveEquationVideosAndData/WaveEquation',num2str(norm),'Norm.mp4');
+if exist(filename, 'file')
+    i = 1;
+    while (true)
+        filename = strcat('WaveEquationVideosAndData/WaveEquation',num2str(norm),'Norm(',num2str(i),').mp4');
+        if exist(filename,'file')
+            i = i + 1;
+        else
+            filename = strcat('WaveEquationVideosAndData/WaveEquation',num2str(norm),'Norm(',num2str(i),')');
+            break;
+        end
+    end
+else
+  filename = strcat('WaveEquationVideosAndData/WaveEquation',num2str(norm),'Norm');
+end
+
+writerObj = VideoWriter(filename,'MPEG-4');
 open(writerObj);
 
 x = 1;y = 2;z = 3;
 idxs = [1 2 3];
+
+cla;
+surf(X,Y,Sol_disk(:,:,x),'EdgeColor','none');hold on;
+surf(-X,Y,Sol_disk(:,:,x),'EdgeColor','none')
+surf(-X,-Y,Sol_disk(:,:,x),'EdgeColor','none')
+surf(X,-Y,Sol_disk(:,:,x),'EdgeColor','none')
+colormap("default")
+axis([-1, 1, -1, 1, -0.15, 0.35])
+titleString = strcat("Time = ",num2str(0.000,'%1.3f')," s");
+title(titleString);
+hold off;
+writeVideo(writerObj,getframe(gcf));
 
 image_count = 0;
 for j = 3:length(Time)
@@ -83,14 +111,16 @@ for j = 3:length(Time)
     y = idxs(2);
     z = idxs(3);
     
-    if image_count > frameSteps
+    if image_count > frameSteps || i == 0
         cla;
         surf(X,Y,Sol_disk(:,:,z),'EdgeColor','none');hold on;
         surf(-X,Y,Sol_disk(:,:,z),'EdgeColor','none')
         surf(-X,-Y,Sol_disk(:,:,z),'EdgeColor','none')
         surf(X,-Y,Sol_disk(:,:,z),'EdgeColor','none')
         colormap("default")
-        axis([-1, 1, -1, 1, -0.05, 0.25])
+        axis([-1, 1, -1, 1, -0.15, 0.35])
+        titleString = strcat("Time = ",num2str(j*dt,'%1.3f')," s");
+        title(titleString);
         hold off;
         image_count = 0;
         writeVideo(writerObj,getframe(gcf)); 
@@ -101,21 +131,3 @@ end
 
 close(f);
 close(writerObj);
-
-% %For Loop values
-% indxX = 2:length(PosX)-1;
-% indxY = 2:length(PosY)-1;
-% image_count = 0;
-% 
-% %Solve the problem
-% for j = 3:length(Time)
-% 
-%     Sol_disk(indxX,indxY,j) = 2*dt^2/dx^2 * (Sol_disk(indxX+1,indxY,j-1) - ...
-%         2*Sol_disk(indxX,indxY,j-1) + Sol_disk(indxX-1,indxY,j-1)) + ...
-%         2*dt^2/dy^2 * (Sol_disk(indxX,indxY+1,j-1) - 2*Sol_disk(indxX,indxY,j-1) + ...
-%         Sol_disk(indxX,indxY-1,j-1)) + 2*Sol_disk(indxX,indxY,j-1) - ...
-%         Sol_disk(indxX,indxY,j-2);
-% 
-% 
-%     image_count = image_count + 1;
-% end

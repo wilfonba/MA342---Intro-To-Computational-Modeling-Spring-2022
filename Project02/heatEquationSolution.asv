@@ -30,16 +30,16 @@ filename = strcat('HeatEquationVideosAndData/HeatEquation',material,'.mp4');
 if exist(filename, 'file')
     i = 1;
     while (true)
-        filename = strcat('HeatEquationVideosAndData/HeatEquation',material,'(',num2str(i),').mp4');
+        filename = strcat('WaveEquationVideosAndData/WaveEquation',num2str(norm),'Norm(',num2str(i),').mp4');
         if exist(filename,'file')
             i = i + 1;
         else
-            filename = strcat('HeatEquationVideosAndData/HeatEquation',material,'(',num2str(i),')');
+            filename = strcat('WaveEquationVideosAndData/WaveEquation',num2str(norm),'Norm(',num2str(i),')');
             break;
         end
     end
 else
-  filename = strcat('HeatEquationVideosAndData/HeatEquation',material);
+  filename = strcat('WaveEquationVideosAndData/WaveEquation',num2str(norm),'Norm');
 end
 
 writerObj = VideoWriter(filename,'MPEG-4');
