@@ -71,14 +71,18 @@ function [xs,ys,NTA] = waveEquationMesh(Ny,p,doPlot)
     end
 
     %% Generate Node Type Array
-
     NTA = zeros(Ny,Nx);
+    
+    NTA(2:end,1) = 3;
+    NTA(end,1:end-1) = 4;
+    NTA(end,1) = 5;
     fxpts = fliplr(xpts);
     for i = 1:length(xpts)
         NTA(Ny+1-xpts(i),fxpts(i)) = 2;
     end
-    for i = 2:Ny
-        j = 1;
+    idx = find(fxpts == 2,1);
+    for i = idx:Ny
+        j = 2;
         while (true)
             if NTA(i,j) == 0
                 NTA(i,j) = 1;
@@ -88,7 +92,4 @@ function [xs,ys,NTA] = waveEquationMesh(Ny,p,doPlot)
             j = j + 1;
         end
     end
-    NTA(2:end,1) = 3;
-    NTA(end,1:end-1) = 4;
-    NTA(end,1) = 5;
 end

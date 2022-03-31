@@ -3,11 +3,11 @@
 clc; close all; clear variables;
 
 
-norm = 2;
+norm = 5;
 Nxy = 128;
 Tmax = 10; %Maximum time
 dx = 1/(Nxy-1);
-dt = 0.95*1/4*dx^2;
+dt = 0.95*1/2*dx;
 Time = unique([0:dt:Tmax,Tmax]);
 frameSteps = ceil(0.005/dt);
 
