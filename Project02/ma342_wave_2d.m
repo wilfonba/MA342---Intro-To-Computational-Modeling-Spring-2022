@@ -3,7 +3,7 @@
 clc; close all; clear variables;
 
 
-norm = 5;
+norm = 99;
 Nxy = 128;
 Tmax = 10; %Maximum time
 dx = 1/(Nxy-1);

@@ -1,17 +1,17 @@
 %% Initializing
 clc;clear;close all;
 
-material = 'Diamond';
-k   = 2.0e3;
-rho = 3.5e3;
-c   = 2.0e3;
+material = ';
+k   = 0.182;
+rho = 0.08185;
+c   = 14.314e3;
 
 zRange = [59.95 60.05];
 frameDt = 0.005;
 
 makeMovie = 1;
 
-[xs,ys,NTA] = heatEquationMesh(256,0);
+[xs,ys,NTA] = heatEquationMesh(128,0);
 
 Nx = length(xs);
 Ny = length(ys);
@@ -60,8 +60,6 @@ fig.Visible = 'off';
 N = ceil(2/dt);
 stepsPerFrame = floor(frameDt/dt);
 %N = 10;
-
-fprintf("Dt = %1.5e, N = %1.5e \n",dt,N);
 
 cla;
 surf(X,Y,T(:,:,1),'edgecolor','none');hold on;
@@ -118,7 +116,6 @@ for i = 1:N
     end
 
     if (mod(i,stepsPerFrame) == 0)
-        fprintf("Frame: %i\n",i/stepsPerFrame);
         cla;
         surf(X,Y,T(:,:,m),'edgecolor','none');hold on;
         surf(-X,Y,T(:,:,m),'edgecolor','none');
