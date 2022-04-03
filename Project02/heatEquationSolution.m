@@ -1,17 +1,17 @@
 %% Initializing
 clc;clear;close all;
 
-material = 'Diamond';
-k   = 2.0e3;
-rho = 3.5e3;
-c   = 2.0e3;
+material = 'Acrylic';
+k   = 0.06;
+rho = 1.19e3;
+c   = 1.5e3;
 
-zRange = [59.95 60.05];
+zRange = [59.9995 60.0005];
 frameDt = 0.005;
 
 makeMovie = 1;
 
-[xs,ys,NTA] = heatEquationMesh(256,0);
+[xs,ys,NTA] = heatEquationMesh(2048,0);
 
 Nx = length(xs);
 Ny = length(ys);

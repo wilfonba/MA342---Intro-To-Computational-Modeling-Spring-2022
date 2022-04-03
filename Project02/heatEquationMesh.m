@@ -21,12 +21,12 @@ function [xs,ys,NTA] = heatEquationMesh(Ny,doPlot)
            plot([0 d],[ys(i),ys(i)],'k-'); 
         end
 
-        plot([0 d/2],[d/2 d/2],'k-','linewidth',2);
+        plot([0 d/2],[d/2 d/2],'b-','linewidth',2);
         plot([0 0],[0 d/2],'k--','linewidth',1);
         plot([0 d],[0 0],'k--','linewidth',1);
-        plot([d/2 + d/2.*cos(theta)],[d/2.*sin(theta)],'k-','linewidth',2)
+        plot([d/2 + d/2.*cos(theta)],[d/2.*sin(theta)],'r-','linewidth',2)
         plot([d/2 d/2],[d/2 d/2],'k--','linewidth',1)
-        plot([d d],[0 d/2],'k--','linewidth',1);
+        %plot([d d],[0 d/2],'k--','linewidth',1);
     end
 
     %% Find and Plot Circle Approximation

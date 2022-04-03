@@ -17,8 +17,6 @@ T = 30;                                     %Maximum time
 alpha = 0.1;                                %H/rho 
 dt = 0.028;                                 %delta t
 dx = 0.01;                                  %delta x
-frameDt = 0.001;
-frameSteps = floor(frameDt/dt);
 PosX = unique([0:dx:L,L]);                  %Creates vector for position and removes repeated values
 Time = unique([0:dt:T,T]);                  %Creates vector for time and removes repeated values
 Sol = zeros(length(PosX), length(Time));    %Creates empty matrix to fill with for loop and applies IC for u(x,t=0)
@@ -64,7 +62,7 @@ for j = 3:length(Time)                      %Covers all the rows (time component
 
 
     
-    if image_count >= frameSteps                     %Once counter reaches limit, update animation
+    if image_count >= 1                     %Once counter reaches limit, update animation
         figure(1)
         subplot(2,1,2)
         plot(Sol_damped(indx,j),'r-')
@@ -88,3 +86,15 @@ for j = 3:length(Time)                      %Covers all the rows (time component
     image_count = image_count + 1;          %Increment the counter variable
 end
 close(writerObj);
+
+kappa_vec = [0.35 0.4 0.5 0.75 0.96 0.97 0.975 0.9755 0.97555 0.97558 0.9757 0.9758 0.1 0.05 ...
+    0.15 0.2 0.25 0.01 0.3 0.45 0.55 0.6 0.65 0.7 0.8 0.85 0.9 0.95];
+time_stop = [8.008 8.12 8.344 9.996 22.96 26.824 28.812 29.82 29.848 29.876 29.932 29.988 7.28 ... 
+    7 7.476 7.644 7.756 6.496 7.896 8.232 8.456 8.596 8.736 9.128 10.836 12.796 14.896 21.784];
+
+figure(2)
+plot(time_stop,kappa_vec,'r*',[0 30],[1 1],'k--')           
+xlabel('Occurrence of Negative Solution (sec)')
+ylabel('\kappa')
+legend('Search Results','Presumed Asymptote')
+axis([0 30 0 1.1])
