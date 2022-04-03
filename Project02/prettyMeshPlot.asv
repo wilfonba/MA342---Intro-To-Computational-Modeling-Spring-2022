@@ -1,0 +1,50 @@
+clc;clear;close all;
+
+[xs,ys,NTA] = heatEquationMesh(12,0);
+
+Nx = length(xs);
+Ny = length(ys);
+d = 0.1;
+theta = linspace(0,pi/2,1000);
+
+figure("position",[50 50 1250 700]);hold on;axis equal;axis([-0.01 0.11 -0.01 0.06])
+for i = 1:Nx
+   plot([xs(i),xs(i)],[0 d/2],'k-'); 
+end
+for i = 1:Ny
+   plot([0 d],[ys(i),ys(i)],'k-'); 
+end
+
+plot([0 d/2],[d/2 d/2],'k-','linewidth',2);
+plot([0 0],[0 d/2],'k--','linewidth',1);
+plot([0 d],[0 0],'k--','linewidth',1);
+plot([d/2 + d/2.*cos(theta)],[d/2.*sin(theta)],'k-','linewidth',2)
+plot([d/2 d/2],[d/2 d/2],'k--','linewidth',1)
+plot([d d],[0 d/2],'k--','linewidth',1);
+
+ys = fliplr(ys);
+
+for i = 1:Nx
+    for j = 1:Ny
+        type = NTA(j,i);
+        switch(type)
+            case 1
+                plot(xs(i),ys(j),'r.','markersize',50);
+            case 2
+                plot(xs(i),ys(j),'g.','markersize',50)
+            case 3
+                plot(xs(i),ys(j),'b.','markersize',50)
+            case 4
+                plot(xs(i),ys(j),'c.','markersize',50)
+            case 5 
+                plot(xs(i),ys(j),'m.','markersize',50)
+            case 6
+                plot(xs(i),ys(j),'k*','linewidth',3,'markersize',20)
+            case 7 
+                plot(xs(i),ys(j),'k.','markersize',50)
+            case 8
+                plot(xs(i),ys(j),'y.','markersize',50)
+        end
+    end
+end
+legend
