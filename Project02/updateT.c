@@ -52,20 +52,23 @@ numOutputs , const mxArray *input[])   // define the main function
 //                 R = [xs(k)-0.05,ys(end-j+1)];
 //                 R = R./norm(R,2);
 //                 T(j,k,m) = ((3*r1+3*r2))/(2*h))^(-1)*(-1 + r1/(2*h)*(4*T[getIndex(j,k-1,n)] - T[getIndex(j,k-2,n)]) + r2/(2*h)*(-T[getIndex(j+2,k,n)]+4*T[getIndex(j+1,k,n)]));
-                    r1 = (xs[k]);
-                    r2 = ys[yLength-j+1];
+                    r1 = (xs[k]-0.05);
+                    r2 = ys[yLength-j-1];
                     normR = sqrt(r1*r1+r2*r2);
                     r1 = r1/normR;
                     r2 = r2/normR;
                     
                     T[getIndex(j,k,m)] = (-1 + r1/(2*h)*(4*T[getIndex(j,k-1,n)] - T[getIndex(j,k-2,n)]) + r2/(2*h)*(-T[getIndex(j+2,k,n)]+4*T[getIndex(j+1,k,n)]))/(((3*r1+3*r2))/(2*h));
-                    // printf("norm=%f\n",normR);
-                    // printf("r1=%f\n",r1);
-                    // printf("r2=%f\n",r2);
-                    // printf("k-1: %f\n",T[getIndex(j,k-1,n)]);
-                    // printf("k-2: %f\n",T[getIndex(j,k-2,n)]);
-                    // printf("j+1: %f\n",T[getIndex(j+1,k,n)]);
-                    // printf("j+2: %f\n",T[getIndex(j,k-1,n)]);
+                    if(isnan(T[getIndex(j,k,m)])) {
+                        printf("norm=%f\n",normR);
+                        printf("r1=%f\n",r1);
+                        printf("r2=%f\n",r2);
+                        printf("j=%d\n",j);
+                        printf("k=%d\n",k);
+                        printf("yLength=%d\n",yLength);
+                        printf("y=%f\n",ys[yLength-j-1]);
+                    }
+                    
                 
                     break;
 
