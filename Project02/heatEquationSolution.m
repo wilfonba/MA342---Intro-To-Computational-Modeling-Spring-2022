@@ -11,7 +11,7 @@ frameDt = 0.005;
 
 makeMovie = 1;
 
-[xs,ys,NTA] = heatEquationMesh(2048,0);
+[xs,ys,NTA] = heatEquationMesh(128,0);
 
 Nx = length(xs);
 Ny = length(ys);

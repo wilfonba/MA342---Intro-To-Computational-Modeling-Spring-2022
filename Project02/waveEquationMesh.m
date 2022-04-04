@@ -14,17 +14,17 @@ function [xs,ys,NTA] = waveEquationMesh(Ny,p,doPlot)
 
     if doPlot
         figure("position",[50 50 700 700]);hold on;axis equal;axis([-0.1 1.1 -0.1 1.1])
-        for i = 1:Nx
-           plot([xs(i),xs(i)],[0 1],'k-'); 
-        end
-        for i = 1:Ny
-           plot([0 1],[ys(i),ys(i)],'k-'); 
-        end
+%         for i = 1:Nx
+%            plot([xs(i),xs(i)],[0 1],'k-'); 
+%         end
+%         for i = 1:Ny
+%            plot([0 1],[ys(i),ys(i)],'k-'); 
+%         end
 
 
         plot([0 0],[0 1],'k--','linewidth',1);
         plot([0 1],[0 0],'k--','linewidth',1);
-        plot(bdxs,bdys,'k-','linewidth',2);
+        plot(bdxs,bdys,'b-','linewidth',2);
     end
     drawnow;
     %% Find and Plot Circle Approximation
