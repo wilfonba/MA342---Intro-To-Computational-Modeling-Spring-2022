@@ -1,0 +1,12 @@
+clc;clear;close all;
+
+tau1  = 0.6;
+tau2  = 0.6;
+hist = @(t) 0;
+tspan = [0 1];
+
+lags = [tau1 tau2];
+
+sol = ddesd(@laNinoLaNina,lags,hist,tspan);
+
+plot(sol.x,sol.y,'k-');
