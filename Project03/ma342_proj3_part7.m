@@ -5,7 +5,7 @@ clc; close all; clear variables;
 
 lag = 1;
 tspan = [0,5];
-history = [50; 20; 10; 0];
+history = [50; 40; 2; 0];
 
 sol = ddesd(@dNdp_func,lag,history,tspan);
 
@@ -28,7 +28,7 @@ for index = 1:length(N)-1
         elseif index == length(N)-1
             N_share(index) = Ndel(index-1) - Ndel(index) + Ndel(1) - Ndel(index);
         else
-            N_share(index) = Ndel(index-1) + Ndel(index) + Ndel(index+1) - Ndel(index);
+            N_share(index) = Ndel(index-1) - Ndel(index) + Ndel(index+1) - Ndel(index);
         end
     else
         N_share(index) = 0;
