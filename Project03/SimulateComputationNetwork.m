@@ -42,22 +42,26 @@ sol = ddesd(@(t,D,Ddel) generateEquations(input, network, processrates, t, D, Dd
 
 figure
 hold on
+l = cell(1, n+1);
 for i = 1:n+1
-    plot(sol.x, sol.y(n, 1:end))
-    if i == n + 1
-        legend("S" + n)
+    plot(sol.x, sol.y(i, 1:end))
+    if i < n + 1
+        l{i} = "S" + i;
     else
-        legend("Processed Packets")
+        l{i} = "Processed Packets";
     end
 end
+legend(l)
 hold off
 end
 
 function out = generateEquations(input, network, processrates, t, D, Ddel)
+    n = size(network, 1);
     out = zeros(n, 1);
-    for i = 1;n
-        out(i) = input(i) - network(1, 1:end)*(D(i)-Ddel) + network(i,i)*(D(i)-Ddel(i)) ...
-        - min(processrates(i), network(i, i)*D(i));
+    for i = 1:n
+        in = input(t);
+        out(i) = in(i) - network(i, 1:end)*(D(i)-Ddel(1:n, i)) ... + network(i,i)*(D(i)-Ddel(i, i)) ...
+        - min(processrates(i), network(i, i)*Ddel(i,1));
     end
-    out = [out ; sum(min(processrates, diag(network).*Ddel))];
+    out = [out ; sum(min(processrates, diag(network).*Ddel(1:n,n+1)))];
 end
