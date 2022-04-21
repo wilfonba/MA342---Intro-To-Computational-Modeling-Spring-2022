@@ -60,7 +60,7 @@ function out = generateEquations(input, network, processrates, t, D, Ddel)
     out = zeros(n, 1);
     for i = 1:n
         in = input(t);
-        out(i) = in(i) - network(i, 1:end)*(D(i)-Ddel(1:n, i)) ... + network(i,i)*(D(i)-Ddel(i, i)) ...
+        out(i) = in(i) - network(i, 1:end)*(D(i)-Ddel(1:n, i)) + network(i,i)*(D(i)-Ddel(i, i)) ...
         - min(processrates(i), network(i, i)*Ddel(i,1));
     end
     out = [out ; sum(min(processrates, diag(network).*Ddel(1:n,n+1)))];
