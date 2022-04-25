@@ -4,9 +4,9 @@
 
 clc; close all; clear variables;
 
-tau = 0.5;
+tau = 10;
 N = 100;
-end_time = 10;
+end_time = 15;
 tspan = [0, end_time];
 
 sol = ddensd(@ddefun,@(t,y)dely(t,y,tau),@(t,y)delyp(t,y,tau),@history,tspan);
