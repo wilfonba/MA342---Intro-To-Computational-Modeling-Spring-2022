@@ -1,4 +1,4 @@
-function [sigma,mu,C,stonks,prices] = readStonksHistory(startDate,endDate,interval,collectionPoint,filename)
+function [sigma,mu,C,stonks,pr] = readStonksHistory(startDate,endDate,interval,collectionPoint,filename)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Description: Reads stock histories from Yahoo Finnance and creates sigma
 %              and mu vectors for protfolio optimization
