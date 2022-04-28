@@ -1,0 +1,8 @@
+clc;clear;close all;
+
+alpha = 0.5;
+[sigma,r,C,stonks] = readStonksHistory(6,[],'1d','Mean',"stonks.csv");
+
+
+N = size(sigma,1);
+[w,optVal] = quadprog((1-alpha)*2*C, -alpha*r,[],[],ones(1,N),[1],zeros(N,1),0.2*ones(N,1));
