@@ -47,7 +47,7 @@ function [sigma,mu,C,stonks] = readStonksHistory(startDate,endDate,interval,coll
            prices(:,i) = data.Low;
        end
     end
-   returns = (prices(:,2:end) - prices(:,1:end-1))./(prices(:,1:end-1));
+   returns = (prices(2:end,:) - prices(1:end-1,:))./(prices(1:end-1,:));
    sigma = std(returns)';
    mu = mean(returns)';
    C = cov(returns);
