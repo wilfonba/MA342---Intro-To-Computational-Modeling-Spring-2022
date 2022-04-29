@@ -1,4 +1,4 @@
-function [P_next] = stonks_prediction(day,dt,P,sigma,mu)
+function [P_next] = stonks_prediction(dt,P,sigma,mu)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Description: Uses previous stock data to predict the future stock prices
 % 
@@ -13,8 +13,8 @@ function [P_next] = stonks_prediction(day,dt,P,sigma,mu)
 % Outputs:
 %   P_next = Prediction of future prices at the next time step
 
-phi = -3 + (3+3)*rand(size(sigma));
+phi = randn(size(sigma));
 
-P_next = P(day,:) + mu'.*P(day,:)*dt+sigma'.*P(day,:)*sqrt(dt).*phi';
+P_next = P + mu'.*P*dt+sigma'.*P*sqrt(dt).*phi';
 
 end

@@ -3,7 +3,7 @@
 
 clc;clear;close all;
 %% Read Data
-[sigma,r,C,stonks,prices] = readStonksHistory(3,[],'1d','Mean',"stonks.csv");
+[sigma,r,C,stonks,prices] = readStonksHistory(3,[],'1d','Mean',"example.csv");
 
 %% Optimize
 alpha = 0.75;
@@ -23,7 +23,7 @@ ret = r'*w;
 dt = 1;
 prices_pred = prices;
 mu = r;
-NewData = zeros(20,N);
+NewData = zeros(29,N);
 for j = 1:6
     NewData(1,:) = prices(1,:);
     for i = 1:20
@@ -34,8 +34,8 @@ end
 
 % Test plot of stonks prediction
 figure(3);hold on;
-for i = 1:N
-    plot(flipud(prices(1:end-N2-1,i)));
+for i = 1:5
+    plot(prices_pred(N2:end,i));
 end
 xlabel('Prediction')
 ylabel('Stock Price')
