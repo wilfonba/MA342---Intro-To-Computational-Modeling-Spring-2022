@@ -23,20 +23,22 @@ function [sigma,mu,C,stonks,prices] = readStonksHistory(startDate,endDate,interv
         endDate = string(datetime(addtodate(t2,-1,'day'),'convertFrom','datenum'));
         startDate = string(datetime(addtodate(t2,-startDate,'month'),'convertFrom','datenum'));
     end
-
-
+    
     [~,stonks,~] = xlsread(filename);
     N = size(stonks,1);
     sigma = zeros(N,1);
     mu = zeros(N,1);
     C = zeros(N,1);
     
+    data = getMarketDataViaYahoo(stonks{1},startDate,endDate,interval);
+    Ndays = size(data,1);
+    
     for i = 1:N
        fprintf("%s\n",stonks{i});
        clear data;
        data = getMarketDataViaYahoo(stonks{i},startDate,endDate,interval);
        if (strcmp(collectionPoint,'Mean'))
-           prices(:,i) = (data.High + data.Low)./2;
+           prices(:,i) = (data.High(1:Ndays) + data.Low(1:Ndays))./2;
        elseif (strcmp(collectionPoint,'Open'))
            prices(:,i) = data.Open;
        elseif (strcmp(collectionPoint,'Close'))
