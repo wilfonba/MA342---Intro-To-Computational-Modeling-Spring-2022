@@ -33,7 +33,7 @@ dt = 1;
 prices_pred = prices;
 mu = r;
 for i = start_pred:dt:stop_pred
-    Newdata = stock_prediction(i,dt,prices_pred,sigma,mu);
+    Newdata = stonks_prediction(i,dt,prices_pred,sigma,mu);
     [sigma,mu,C,prices_pred] = updateStonksHistory(prices_pred,Newdata);
 end
 

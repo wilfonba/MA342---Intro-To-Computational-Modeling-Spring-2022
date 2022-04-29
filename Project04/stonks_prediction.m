@@ -1,4 +1,4 @@
-function [P_next] = stock_prediction(day,dt,P,sigma,mu)
+function [P_next] = stonks_prediction(day,dt,P,sigma,mu)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Description: Uses previous stock data to predict the future stock prices
 % 
