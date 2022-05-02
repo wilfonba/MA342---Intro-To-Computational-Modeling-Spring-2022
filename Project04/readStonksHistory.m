@@ -29,21 +29,29 @@ function [sigma,mu,C,stonks,prices] = readStonksHistory(startDate,endDate,interv
     sigma = zeros(N,1);
     mu = zeros(N,1);
     C = zeros(N,1);
+
+   data = getMarketDataViaYahoo(stonks{1},startDate,endDate,interval);
+   days = size(data, 1);
     
+   prices = zeros(days, N);
     for i = 1:N
        fprintf("%s\n",stonks{i});
        clear data;
        data = getMarketDataViaYahoo(stonks{i},startDate,endDate,interval);
+       cdays = size(data, 1);
        if (strcmp(collectionPoint,'Mean'))
-           prices(:,i) = (data.High + data.Low)./2;
+           prices(1:min(days, cdays),i) = (data.High(1:min(days, cdays)) + data.Low(1:min(days, cdays)))./2;
        elseif (strcmp(collectionPoint,'Open'))
-           prices(:,i) = data.Open;
+           prices(1:min(days, cdays),i) = data.Open(1:min(days, cdays));
        elseif (strcmp(collectionPoint,'Close'))
-           prices(:,i) = data.Close;
+           prices(1:min(days, cdays),i) = data.Close(1:min(days, cdays));
        elseif (strcmp(collectionPoint,'High'))
-           prices(:,i) = data.High;
+           prices(1:min(days, cdays),i) = data.High(1:min(days, cdays));
        elseif (strcmp(collectionPoint,'Low'))
-           prices(:,i) = data.Low;
+           prices(1:min(days, cdays),i) = data.Low(1:min(days, cdays));
+       end
+       if cdays < days 
+            prices(cdays+1:days, i) = prices(cdays, i)+zeros(days-cdays, 1);
        end
     end
    returns = (prices(2:end,:) - prices(1:end-1,:))./(prices(1:end-1,:));
