@@ -23,10 +23,10 @@ Ts = [Ts;TsZero];
 x0 = [1 15 0.5 2.5 2.5 2.5];
 lb = [0;1;0;0;0;0];
 up = [20,20,15,5,5,50];
-options = optimoptions(@fmincon,'TolX',1e-8,'display','iter','UseParallel',false);
-[cSol,fVal] = fmincon(@(V) elNinoLaNinaOpt(V,Ts,tHist,predictTime),x0',[],[],[],[],lb,up,[],options);
-%options = optimoptions(@simulannealbnd,'display','iter');
-%[cSol,fVal] = simulannealbnd(@(V) elNinoLaNinaOpt(V,Ts,tHist,predictTime),x0',lb,up,options);
+%options = optimoptions(@fmincon,'TolX',1e-8,'display','iter','UseParallel',false);
+%[cSol,fVal] = fmincon(@(V) elNinoLaNinaOpt(V,Ts,tHist,predictTime),x0',[],[],[],[],lb,up,[],options);
+options = optimoptions(@simulannealbnd,'display','iter');
+[cSol,fVal] = simulannealbnd(@(V) elNinoLaNinaOpt(V,Ts,tHist,predictTime),x0',lb,up,options);
 % for i = 1:10
 %    options = optimoptions(@surrogateopt,'maxfunctionevaluations',300+50*i);
 %    if i > 1

@@ -43,9 +43,9 @@ function R = elNinoLaNinaOpt(V,Ts,tHist,tMax)
             ts = linspace(0,tMax,250);
             solInterp = interp1(sol.x,sol.y,ts);
             futureInterp = interp1(futureT,futureTs,ts);
-            error = sum(abs(solInterp-futureInterp));
+            [error,idx] = max(abs(solInterp-futureInterp));
             %xline(ts(idx),'k--');
-            R = R + error;
+            R = R + error/(ts(idx));
             
 %             plot(ts,solInterp,'b-');hold on;
 %             plot(ts,futureInterp,'r-');
