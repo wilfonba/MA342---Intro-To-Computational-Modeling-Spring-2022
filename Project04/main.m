@@ -10,12 +10,13 @@ save("stonks","stonks");
 %% Optimize
 clc;clear;close all;
 months=6;
-correlation = 0;
-alpha = 0.4970;
-%alpha = 0.9;
+correlation = 1;
+alpha = 0.9;
+%alpha = 0.6;
 
 
 load("prices.mat");
+load("stonks");
 [sigma,r,C,prices] = updateStonksHistory(prices,[]);
 N = size(sigma,1);
 doPlots = ones(N,months);
@@ -35,7 +36,9 @@ NewData = zeros(22001,N);
 P0 = prices(1,:);
 for j = 1:months
     NewData(1,:) = prices(1,:);
-    A = chol(C,'lower');
+    [U,D] = eig(C);
+    A = U*sqrt(D);
+    %A = chol(C,'lower');
     for i = 1:22000
         NewData(i+1,:) = stonks_prediction(dt,NewData(i,:),sigma,mu,correlation,A);
     end
@@ -59,9 +62,13 @@ for j = 1:months
     for i = 1:60
         if doPlots(i,j) == 1
             if j == months
-                plot([0,days(end-22*(j)+1:end-22*(j-1))],[P0(i);flipud(prices((22*(j-1)+1):22*j,i))]./P0(i));
+                p = plot([0,days(end-22*(j)+1:end-22*(j-1))],[P0(i);flipud(prices((22*(j-1)+1):22*j,i))]./P0(i));
+                row = dataTipTextRow("Stonk",stonks{i});
+                p.DataTipTemplate.DataTipRows(end+1) = row.Value;
             else
-                plot(days(end-22*(j)+1:end-22*(j-1)),[flipud(prices((22*(j-1)+1):22*j,i))]./P0(i));
+                p = plot(days(end-22*(j)+1:end-22*(j-1)),[flipud(prices((22*(j-1)+1):22*j,i))]./P0(i));
+                row = dataTipTextRow("Stonk",stonks{i});
+                p.DataTipTemplate.DataTipRows(end+1) = row.Value;
             end
         end
     end
