@@ -16,7 +16,7 @@ function [sigma,mu,C,prices] = updateStonksHistory(prices,newData)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     prices = [newData;prices];
     returns = (prices(2:end,:) - prices(1:end-1,:))./(prices(1:end-1,:));
-    sigma = std(returns)';
+    sigma = (std(returns))';
     mu = mean(returns)';
     C = cov(returns);
 end

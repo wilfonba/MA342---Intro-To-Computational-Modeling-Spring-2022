@@ -1,6 +1,6 @@
 clc;clear;close all;
 %% Read Data
-[sigma,r,C,stonks,prices] = readStonksHistory(3,[],'1d','Mean',"stonks.csv");
+[sigma,r,C,stonks,prices] = readStonksHistory(12,[],'1d','Mean',"stonks.csv");
 
 %% Optimize
 alpha = [0:0.001:1].^2;
