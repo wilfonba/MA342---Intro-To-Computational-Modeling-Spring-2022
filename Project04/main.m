@@ -10,9 +10,13 @@ save("stonks","stonks");
 %% Optimize
 clc;clear;close all;
 months=6;
+correlation = 0;
+alpha = 0.4970;
+%alpha = 0.9;
+
+
 load("prices.mat");
 [sigma,r,C,prices] = updateStonksHistory(prices,[]);
-alpha = 0.4970;
 N = size(sigma,1);
 doPlots = ones(N,months);
 N2 = size(prices,1);
@@ -31,8 +35,9 @@ NewData = zeros(22001,N);
 P0 = prices(1,:);
 for j = 1:months
     NewData(1,:) = prices(1,:);
+    A = chol(C,'lower');
     for i = 1:22000
-        NewData(i+1,:) = stonks_prediction(dt,NewData(i,:),sigma,mu);
+        NewData(i+1,:) = stonks_prediction(dt,NewData(i,:),sigma,mu,correlation,A);
     end
     returns(j) = w'*((NewData(end,:)-P0)./(P0))';
     [sigma,mu,C,prices] = updateStonksHistory(prices,flipud(NewData([1001:1000:end],:)));
@@ -62,7 +67,9 @@ for j = 1:months
     end
     xline(j*22,'k-','linewidth',1);
 end
-plot([0,(1:months).*22],[0,returns],'k--','linewidth',2)
+ylabel('Stock Return')
+%yyaxis 'right'
+%ylabel('Protfolio Return');
+plot([0,(1:months).*22],[0,returns],'k','linewidth',1)
 xlabel('Prediction')
-ylabel('Stock Price')
 returns
