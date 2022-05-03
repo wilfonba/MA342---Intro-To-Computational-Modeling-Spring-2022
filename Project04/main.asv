@@ -3,16 +3,16 @@
 
 clc;clear;close all;
 %% Read Data
-[~,~,~,stonks,prices] = readStonksHistory(12,[],'1d','Mean',"stonks.csv");
+[sigma,r,C,stonks,prices] = readStonksHistory(12,[],'1d','Mean',"stonks.csv");
 prices = flipud(prices);
 save("prices","prices");
 save("stonks","stonks");
 %% Optimize
 clc;clear;close all;
-months=6;
+months=12;
 load("prices.mat");
 [sigma,r,C,prices] = updateStonksHistory(prices,[]);
-alpha = 0.4970;
+alpha = 0.497;
 N = size(sigma,1);
 doPlots = ones(N,months);
 N2 = size(prices,1);
@@ -62,7 +62,7 @@ for j = 1:months
     end
     xline(j*22,'k-','linewidth',1);
 end
-plot([0,(1:months).*22],[0,returns],'k--','linewidth',2)
+plot([0,(1:m).*22],[0,returns],'k--','linewidth',2)
 xlabel('Prediction')
 ylabel('Stock Price')
 returns
