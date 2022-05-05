@@ -11,9 +11,9 @@ save("stonks","stonks");
 clc;clear;close all;
 months=6;
 correlation = 1;
-alpha = 0.9;
+alpha = 0.497;
 %alpha = 0.6;
-
+%rng(987654321);
 
 load("prices.mat");
 load("stonks");
@@ -36,9 +36,10 @@ NewData = zeros(22001,N);
 P0 = prices(1,:);
 for j = 1:months
     NewData(1,:) = prices(1,:);
-    [U,D] = eig(C);
-    A = U*sqrt(D);
-    %A = chol(C,'lower');
+    C = corrcov(C);
+    %[U,D] = eig(C);
+    %A = U*sqrt(D);
+    A = chol(C,'lower');
     for i = 1:22000
         NewData(i+1,:) = stonks_prediction(dt,NewData(i,:),sigma,mu,correlation,A);
     end
@@ -56,7 +57,7 @@ for j = 1:months
 end
 
 % Test plot of stonks prediction
-figure(3);hold on;
+figure('position',[50 50 1200 500]);hold on;
 days = 1:months*22;
 for j = 1:months
     for i = 1:60
@@ -65,8 +66,12 @@ for j = 1:months
                 p = plot([0,days(end-22*(j)+1:end-22*(j-1))],[P0(i);flipud(prices((22*(j-1)+1):22*j,i))]./P0(i));
                 row = dataTipTextRow("Stonk",stonks{i});
                 p.DataTipTemplate.DataTipRows(end+1) = row.Value;
+            elseif j == 1
+                p = plot(days(end-22*(j):end),[flipud(prices((22*(j-1)+1):22*j+1,i))]./P0(i));
+                row = dataTipTextRow("Stonk",stonks{i});
+                p.DataTipTemplate.DataTipRows(end+1) = row.Value;
             else
-                p = plot(days(end-22*(j)+1:end-22*(j-1)),[flipud(prices((22*(j-1)+1):22*j,i))]./P0(i));
+                p = plot(days(end-22*(j):end-22*(j-1)),[flipud(prices((22*(j-1))+1:22*j+1,i))]./P0(i));
                 row = dataTipTextRow("Stonk",stonks{i});
                 p.DataTipTemplate.DataTipRows(end+1) = row.Value;
             end
@@ -77,6 +82,6 @@ end
 ylabel('Stock Return')
 %yyaxis 'right'
 %ylabel('Protfolio Return');
-plot([0,(1:months).*22],[0,returns],'k','linewidth',1)
+%plot([0,(1:months).*22],[0,returns],'k','linewidth',1)
 xlabel('Prediction')
 returns

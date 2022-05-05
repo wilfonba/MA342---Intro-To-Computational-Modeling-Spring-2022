@@ -18,5 +18,5 @@ function [sigma,mu,C,prices] = updateStonksHistory(prices,newData)
     returns = (prices(2:end,:) - prices(1:end-1,:))./(prices(1:end-1,:));
     sigma = (std(returns))';
     mu = mean(returns)';
-    C = corrcoef(returns);
+    C = cov(returns);
 end
