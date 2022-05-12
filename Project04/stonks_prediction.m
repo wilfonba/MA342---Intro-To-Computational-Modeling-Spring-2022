@@ -17,7 +17,7 @@ if correlation == 0
     P_next = P + mu'.*P*dt+sigma'.*P*sqrt(dt).*phi';
 elseif correlation == 1
     phi = randn(size(sigma));
-    phi = mu + A'*phi;
+    phi = A'*phi;
     P_next = P + mu'.*P*dt+sigma'.*P*sqrt(dt).*phi';
 end
 

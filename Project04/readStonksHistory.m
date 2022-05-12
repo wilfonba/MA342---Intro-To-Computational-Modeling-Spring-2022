@@ -30,6 +30,9 @@ function [sigma,mu,C,stonks,prices] = readStonksHistory(startDate,endDate,interv
     mu = zeros(N,1);
     C = zeros(N,1);
 
+   %Artem Lenskiy (2022). Yahoo Finance and Quandl data downloader 
+   %(https://github.com/Lenskiy/Yahoo-Quandl-Market-Data-Donwloader/...
+   %releases/tag/v1.131), GitHub. Retrieved May 9, 2022.
    data = getMarketDataViaYahoo(stonks{1},startDate,endDate,interval);
    days = size(data, 1);
     
