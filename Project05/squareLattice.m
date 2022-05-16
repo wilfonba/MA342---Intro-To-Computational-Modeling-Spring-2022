@@ -29,7 +29,8 @@ end
 
 [X,Y] = meshgrid(1:N,1:N);
 
-figure;
+fig = figure("position",[50 50 600 600]);
+
 for i = 2:nTotal
     for j = 1:size(A,1)
        E(i) = E(i) - J*sigma(A(j,1),i-1)*sigma(A(j,2),i-1);
@@ -82,6 +83,8 @@ for i = 2:nTotal
     surf(reshape(sigma(:,i),N,N),'edgecolor','none');
     view(0,90);
     drawnow;
+    axis off
 end
 
+figure("position",[50 50 1000 800]);
 plot(E,'k.')
