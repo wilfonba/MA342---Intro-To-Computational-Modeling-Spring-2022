@@ -9,7 +9,7 @@ nSim = 2000;
 J = 1;
 H = 0;
 Tmin = 2;
-Tmax = 10;
+Tmax = 100;
 
 nTotal = nEquilib + nSim;
 E = zeros(nTotal,1);
