@@ -1,7 +1,7 @@
 n = 30;
-T = 1.5;
+T = 3.5;
 p = .6;
-sims = 2000;
+sims = 500;
 
 sigmas = simspins(n, T, p, sims);
 energy = zeros(1, size(sigmas, 3));
@@ -11,3 +11,5 @@ for i = 1:size(sigmas, 3)
 end
 
 scatter(0:sims, energy, 10);
+xlabel("Iteration")
+ylabel("Lattice Energy E/N")

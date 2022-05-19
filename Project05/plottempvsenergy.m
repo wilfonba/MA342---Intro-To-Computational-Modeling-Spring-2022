@@ -1,6 +1,6 @@
-sims = 10000;
-ignore = 7500;
-temps = 1:0.01:4;
+sims = 1000;
+ignore = 750;
+temps = 1:0.05:4;
 n = 50;
 p = .60;
 
